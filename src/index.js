@@ -62,12 +62,15 @@ class App extends React.Component {
     //   (position) => console.log(position),
     //   (err) => console.log(err)
     // );
-    return (
-      <div>
-        Latitude: {this.state.lat}
-        Error: {this.state.errorMessage}
-      </div>
-    );
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div>Latitude: {this.state.lat}</div>;
+    }
+
+    return <div>Loading!</div>;
   }
 }
 //When we make a class, we are creating a new class inside of JS that has just one method assigned to it and that is the render method.
