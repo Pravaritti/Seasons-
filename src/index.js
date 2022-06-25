@@ -29,7 +29,10 @@ class App extends React.Component {
 
       errorMessage: "",
     };
+  }
 
+  componentDidMount() {
+    console.log("My component was rendered to the screen");
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log(position);
@@ -49,6 +52,9 @@ class App extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    console.log("My component was just updated - it rerendered!");
+  }
   render() {
     //We never ever want to initialize some work or some request from a call in render method. why? coz render method gets called every time state gets updated.
     // window.navigator.geolocation.getCurrentPosition(
@@ -69,3 +75,34 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.querySelector("#root"));
 //show an instance of my App component and then as the second argument to this thing, i'm going to provide reference to that div with ID of root inside if iur indexed HTML .
+
+//component lifecycle method is a function that we can optionally define inside of our class basedcomponents. if we decide to impldmdnt these methods, they will be called automatically by react at certain points.during a component's lifecycle.
+// term lifecycle refers to the fact that a component is going to be created and then show up in the dom or show up on the screen of our broswer and at some point we say call setState, which will call the component to render. and in thoery at some point, a component mught be removed from DOM and stop showing its content on the screen. this entire series of evernt is what we call lifecycle.
+//so these lifecycle methods are functions thats are called during very distinct or discrete times
+
+//constructor function -> optionally defined. if we define it, it will be automatically called when a new instance of our component is created.
+//render method -> not optional. thechnically render method is a lifecycle function. it gets called at some point during the lifecycle of a component.
+//what all happens?
+// constructor function is called -> render function is called -> returns some JSX and that content becomes visible on screen-> after that we see different series of methods beign called at different points of time. -> after our component first renderes onto the screen (content first shows up), this componentDidMount() method is called (automatically) only once,immediately after render
+
+//componenetDidMount -> we can set up some code in it like initial data loading etc. that we might want to do one time when our compoenent shows up.
+
+//now our compoenent sits around and waits after componentDidMount and waits for update i.e. setState method or rerender. anytime this happens, another lifecycle method is called automatically.
+
+//componentDidUpdate -> gets called everytime our component gets updated. after this our component sits and wait until it is no longer shown/displayed. then next method is called
+//PS -> anytime our component updates, render will be called and will return some JSX that will be shown on the screen. and right after that componentDidUpdate will be invoked.
+
+//componentWillUnmount ->this method will be used if we wanna do some kind of cleanup after our component
+
+/*
+constructor -> good to do one time thing or initial data fetching or things that we need as soon as an object is made.
+
+render -> avoid doing anything besides returning JSX. not going to ever make any network request etc.
+
+componentDidMount 0> perfect loaction for some initial data loading  or kick out some outside process, like getting user location, if u have to do this thing only one time. best practice is do not do data loading inconstructor function. (recommended)because if you centralize all your data loadking stuff here as opposed to spreadin it out to constructor and componentDidMount -> it will be more clear code.
+
+compoenentDidUpdate -> good place for data loading that needs to be done everytime a component is updated.
+
+componentWillUnmount -> doesnt get used that often anymore
+
+*/
