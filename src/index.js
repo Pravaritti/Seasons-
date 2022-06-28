@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import SeasonDisplay from "./SeasonDisplay";
 
 // //Functional Component
 // const App = () => {
@@ -18,7 +19,7 @@ import ReactDOM from "react-dom";
 class App extends React.Component {
   //extends React.Component because we borrow many methods from this other class that REACT expects us to have in ourder to use class based component
 
-  //called any time a new instance is created, automatically and instantly
+  /* //called any time a new instance is created, automatically and instantly
   //has props object
   constructor(props) {
     super(props); //have to do this step
@@ -29,7 +30,11 @@ class App extends React.Component {
 
       errorMessage: "",
     };
-  }
+  }*/
+
+  //another way to initialize state without using constructor function
+  state = { lat: null, errorMessage: "" };
+  //
 
   componentDidMount() {
     console.log("My component was rendered to the screen");
@@ -66,7 +71,8 @@ class App extends React.Component {
     }
 
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>Latitude: {this.state.lat}</div>;
+      return <SeasonDisplay lat={this.state.lat} />; //creating an instance
+      //passing props into it
     }
 
     return <div>Loading!</div>;
@@ -106,3 +112,5 @@ compoenentDidUpdate -> good place for data loading that needs to be done everyti
 componentWillUnmount -> doesnt get used that often anymore
 
 */
+
+//the code that we write in our code editor is not what shows up in our browser. it actually runs thru the tool BABEL and the code gets converted to some form of JS which can be run byall popular browsers
