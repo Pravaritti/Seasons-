@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
+import Spinner from "./Spinner";
 
 // //Functional Component
 // const App = () => {
@@ -75,7 +76,7 @@ class App extends React.Component {
       //passing props into it
     }
 
-    return <div>Loading!</div>;
+    return <Spinner />;
   }
 }
 
