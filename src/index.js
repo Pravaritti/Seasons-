@@ -76,7 +76,7 @@ class App extends React.Component {
       //passing props into it
     }
 
-    return <Spinner />;
+    return <Spinner message="Please accept location request" />;
   }
 }
 
