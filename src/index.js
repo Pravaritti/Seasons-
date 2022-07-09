@@ -61,12 +61,9 @@ class App extends React.Component {
   componentDidUpdate() {
     console.log("My component was just updated - it rerendered!");
   }
-  render() {
-    //We never ever want to initialize some work or some request from a call in render method. why? coz render method gets called every time state gets updated.
-    // window.navigator.geolocation.getCurrentPosition(
-    //   (position) => console.log(position),
-    //   (err) => console.log(err)
-    // );
+
+  //helper function to get red border for every return statement. purpose = avoid duplication of same code in every return statement
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -78,14 +75,19 @@ class App extends React.Component {
 
     return <Spinner message="Please accept location request" />;
   }
+  render() {
+    //We never ever want to initialize some work or some request from a call in render method. why? coz render method gets called every time state gets updated.
+    // window.navigator.geolocation.getCurrentPosition(
+    //   (position) => console.log(position),
+    //   (err) => console.log(err)
+    // );
+
+    return <div className="border red">{this.renderContent()}</div>;
+  }
 }
 
 ReactDOM.render(<App />, document.querySelector("#root"));
 //show an instance of my App component and then as the second argument to this thing, i'm going to provide reference to that div with ID of root inside if iur indexed HTML .
-
-//component lifecycle method is a function that we can optionally define inside of our class basedcomponents. if we decide to impldmdnt these methods, they will be called automatically by react at certain points.during a component's lifecycle.
-// term lifecycle refers to the fact that a component is going to be created and then show up in the dom or show up on the screen of our broswer and at some point we say call setState, which will call the component to render. and in thoery at some point, a component mught be removed from DOM and stop showing its content on the screen. this entire series of evernt is what we call lifecycle.
-//so these lifecycle methods are functions thats are called during very distinct or discrete times
 
 //constructor function -> optionally defined. if we define it, it will be automatically called when a new instance of our component is created.
 //render method -> not optional. thechnically render method is a lifecycle function. it gets called at some point during the lifecycle of a component.
